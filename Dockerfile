@@ -4,10 +4,11 @@ RUN mkdir -p /app
 COPY . /app
 WORKDIR /app
 
-RUN apk add --no-cache --virtual build-deps gcc musl-dev libffi-dev2 pkgconf mariadb-dev mariadb-connector-c
-RUN apk add --no-cache mysql-client
-    
-RUN pip install --upgrade setuptools
+RUN apk update \
+    && apk add --virtual build-deps gcc python3-dev musl-dev \
+    && apk add --no-cache mariadb-dev
+
+RUN pip install mysqlclient  
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
